@@ -2,7 +2,7 @@
 
 import random
 import time
-import visualizer
+from abc import ABCMeta, abstractmethod
 
 
 class Algorithm:
@@ -14,8 +14,9 @@ class Algorithm:
         # Variable name.
         self.name = name
 
-    def update_display(self, swap1=None, swap2):
+    def update_display(self, swap1=None, swap2=None):
         # Pass indexes to be swapped to the visualizer.
+        import visualizer
         visualizer.update(self, swap1, swap2)
 
     def run(self):
@@ -24,6 +25,10 @@ class Algorithm:
         self.algorithm()
         time_elapsed = time.time() - self.start_time
         return self.array, time_elapsed
+
+    @abstractmethod
+    def algorithm(self):
+        raise TypeError(f"Algorithm.algorithm() has not been overwritten.")
 
 
 class SelectionSort(Algorithm):
@@ -35,7 +40,7 @@ class SelectionSort(Algorithm):
     def algorithm(self):
         for i in range(len(self.array)):
             min_idx = i
-            for j in range(j+1, len(self.array)):
+            for j in range(i+1, len(self.array)):
                 if self.array[j] < self.array[min_idx]:
                     min_idx = j
             self.array[i], self.array[min_idx] = self.array[min_idx], self.array[i]
