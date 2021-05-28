@@ -44,11 +44,9 @@ def update(algorithm, swap1=None, swap2=None, display=display):
     for i in range(len(algorithm.array)):
         color = (80, 0, 255)
         if swap1 == algorithm.array[i]:
-            print(algorithm.array[i])
             color = (0, 255, 0)
         elif swap2 == algorithm.array[i]:
             color = (255, 0, 0)
-            print(algorithm.array[i])
         pg.draw.rect(
             display, color, (i*k,DIMENSIONS[1],k,-algorithm.array[i])
         )
